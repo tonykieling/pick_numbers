@@ -49,6 +49,21 @@
 
 
 const arrayOfObjectsSorted =  [
+  // OKAY
+  // { number: '4', frequency: 3 },
+  // { number: '6', frequency: 4 },
+  // { number: '7', frequency: 2 },
+  // { number: '10', frequency: 2 },
+  // { number: '11', frequency: 2 },
+  // { number: '3', frequency: 2 },
+  // { number: '2', frequency: 2 },
+  // { number: '5', frequency: 2 },
+  // { number: '8', frequency: 2 },
+  // { number: '55', frequency: 2 },
+  // { number: '9', frequency: 1 },
+  // { number: '15', frequency: 1 },
+
+  // OKAY
   { number: '4', frequency: 3 },
   { number: '6', frequency: 4 },
   { number: '7', frequency: 2 },
@@ -58,9 +73,57 @@ const arrayOfObjectsSorted =  [
   { number: '2', frequency: 2 },
   { number: '5', frequency: 2 },
   { number: '8', frequency: 2 },
-  { number: '55', frequency: 2 },
+  { number: '55', frequency: 2 }
+
+  // OKAY
+  // { number: '7', frequency: 2 },
+  // { number: '10', frequency: 2 },
+  // { number: '11', frequency: 2 },
+  // { number: '3', frequency: 2 },
+  // { number: '2', frequency: 2 },
+  // { number: '5', frequency: 2 },
+  // { number: '8', frequency: 2 },
+  // { number: '55', frequency: 2 },
   // { number: '9', frequency: 1 },
   // { number: '15', frequency: 1 },
+
+  // OKAY
+  // { number: '7', frequency: 8 },
+  // { number: '10', frequency: 7 },
+  // { number: '11', frequency: 6 },
+  // { number: '3', frequency: 5 },
+  // { number: '2', frequency: 4 },
+  // { number: '5', frequency: 3 },
+  // { number: '8', frequency: 2 },
+  // { number: '55', frequency: 1 },
+
+  // { number: '7', frequency: 8 },
+  // { number: '10', frequency: 7 },
+  // { number: '11', frequency: 6 },
+  // { number: '3', frequency: 5 },
+  // { number: '2', frequency: 4 },
+  // { number: '5', frequency: 4 },
+  // { number: '8', frequency: 2 },
+  // { number: '55', frequency: 1 },
+
+  // { number: '7', frequency: 8 },
+  // { number: '44', frequency: 8 },
+  // { number: '10', frequency: 7 },
+  // { number: '11', frequency: 6 },
+  // { number: '3', frequency: 5 },
+  // { number: '2', frequency: 4 },
+  // { number: '8', frequency: 2 },
+  // { number: '55', frequency: 1 },
+
+  // OKAY
+  // { number: '7', frequency: 2 },
+  // { number: '10', frequency: 2 },
+  // { number: '11', frequency: 2 },
+  // { number: '3', frequency: 2 },
+  // { number: '2', frequency: 2 },
+  // { number: '5', frequency: 2 },
+  // { number: '8', frequency: 2 },
+  // { number: '55', frequency: 2 },
 ]
 
 const pickASetOfNumbers = (tempArray, numberOfItemsToBePicked) => {
@@ -81,7 +144,7 @@ const pickASetOfNumbers = (tempArray, numberOfItemsToBePicked) => {
 
 
 const arrangeFinalNumbers = (arr, numberOfItems) => {
-  console.log("received:::: ", arr, numberOfItems);
+  // console.log("received:::: ", arr, numberOfItems);
 
   const formatToBeReturned = arr => arr.sort((a, b) => a - b);
   let numbersToBeReturned = [];
@@ -102,17 +165,19 @@ const arrangeFinalNumbers = (arr, numberOfItems) => {
       if (arr[t].frequency !== arr[c].frequency) {
       console.log("NOOOOOOOOW    ttt: ", t, tempArray, "tempCounter: ", tempCounter, "mainCounter::: ", mainCounter, "numberOfItems::: ", numberOfItems)
 
-        if (tempCounter + mainCounter <= numberOfItems) {
-          console.log("flaggg22222211111: ", numbersToBeReturned)
-          numbersToBeReturned = [...numbersToBeReturned, (tempArray.length ? [...tempArray] : arr[c].number.toString())];
+        // if (tempCounter + mainCounter <= numberOfItems) {
+        if (mainCounter <= numberOfItems) {
+          console.log("flaggg22222211111XXXXXXXXXXXXXXXXXXXXX: ", numbersToBeReturned)
+          // numbersToBeReturned = [...numbersToBeReturned, (tempArray.length ? [...tempArray] : arr[c].number.toString())]; ////////
+          numbersToBeReturned = [...numbersToBeReturned, arr[c].number.toString()]; ////////
           console.log("flaggg222222: ", numbersToBeReturned)
           break;
         } else {
-          console.log("calling: ", numberOfItems)
+          console.log("calling exit: ", numberOfItems)
           let tt = pickASetOfNumbers(tempArray, numberOfItems - numbersToBeReturned.length);
           console.log("tt= ", tt)
           numbersToBeReturned = [...numbersToBeReturned, ...tt];
-          return numbersToBeReturned;
+          return formatToBeReturned(numbersToBeReturned);
         }
       } else {
         if (tempCounter === 0) tempArray = [arr[c].number, arr[t].number];
