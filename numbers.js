@@ -14,12 +14,14 @@ const pickASetOfNumbers = (tempArray, numberOfItemsToBePicked) => {
 }
 
 
+
 const assemblyObject = (obj, arr) => {
   for (let c = 0; c < arr.length; c++)
     (obj[arr[c]]) ? obj[arr[c]] = obj[arr[c]] + 1 : obj[arr[c]] = 1;
   
   return obj;
 }
+
 
 
 const convertObjectToArrayOfObjects = obj => {
@@ -34,6 +36,7 @@ const convertObjectToArrayOfObjects = obj => {
 }
 
 
+
 const sortObject = obj => {
   let initialArray = convertObjectToArrayOfObjects(obj);
 
@@ -41,46 +44,56 @@ const sortObject = obj => {
 }
 
 
+
 const arrangeFinalNumbers = (arr, numberOfItems) => {
+
+  const formatToBeReturned = arr => arr.sort((a, b) => a - b);
   let numbersToBeReturned = [];
-  let mainCounter = 0;
 
   for (let c = 0; c < arr.length; c++) {
-    // mainCounter++;
     
-    if (numbersToBeReturned.length === numberOfItems) return numbersToBeReturned;
+    if (numbersToBeReturned.length === numberOfItems)
+      return formatToBeReturned(numbersToBeReturned);
 
-    let tempCounter = 0;
     let tempArray = [];
     for (let t = c + 1; t < arr.length; t++) {
-      tempCounter++;
-      // tempArray = [...tempArray, arr[t].number];
-
       if (arr[t].frequency !== arr[c].frequency) {
-        if (tempCounter + mainCounter <= numberOfItems) {
-          numbersToBeReturned = [...numbersToBeReturned, (tempArray.length ? [...tempArray] : arr[c].frequency)];
+        if (tempArray.length + numbersToBeReturned.length <= numberOfItems) {
+          if (tempArray.length) numbersToBeReturned = [...numbersToBeReturned, ...tempArray];
+          else numbersToBeReturned = [... numbersToBeReturned, arr[c].number.toString()];
+          c = t - 1;
+          break;
         } else {
-          let tt = pickASetOfNumbers(tempArray, numberOfItems - t);
-          console.log("tt= ", tt)
-          numbersToBeReturned = [...numbersToBeReturned, ...tempArray];
-          return numbersToBeReturned;
+          const temp = pickASetOfNumbers(tempArray, numberOfItems - numbersToBeReturned.length);
+          numbersToBeReturned = [...numbersToBeReturned, ...temp];
+          return formatToBeReturned(numbersToBeReturned);
         }
       } else {
-        tempArray = [...tempArray, arr[t].number];
-      }
-    }
+        if (tempArray.length === 0) tempArray = [arr[c].number, arr[t].number];
+        else {
+          tempArray = [...tempArray, arr[t].number];
 
-    mainCounter = mainCounter + tempCounter;
+          if (t === arr.length - 1) {
+            const temp = pickASetOfNumbers(tempArray, numberOfItems - numbersToBeReturned.length);
+            numbersToBeReturned = [...numbersToBeReturned, ...temp];
+            return formatToBeReturned(numbersToBeReturned);
+          }
+
+        }
+      }
+
+    }
   }
 
-  return arr;
+  return formatToBeReturned(arr);
 }
 
 
+
 const main = () => {
-  const numberOfDraws = 3; // number of draws over the most frequent numbers
+  const numberOfDraws = 8; // number of draws over the most frequent numbers
   // const frequentNumbersOriginal = [35, 14, 39, 24, 5, 16, 11, 38, 40, 20, 33];
-  const frequentNumbersOriginal = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const frequentNumbersOriginal = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 22, 33];
   const numberOfItemsToBePicked = 5; // amount of number to be used in the bet
   let array = [];
   let object = {};
@@ -96,7 +109,6 @@ const main = () => {
   console.log("finals => ", finals);
   
   return "";
-
 }
 
 console.log(main());

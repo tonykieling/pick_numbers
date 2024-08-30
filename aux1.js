@@ -49,7 +49,21 @@
 
 
 const arrayOfObjectsSorted =  [
-  // OKAY
+  // OKAY2
+  // { number: '4', frequency: 4 },
+  // { number: '6', frequency: 3 },
+  // { number: '7', frequency: 2 },
+  // { number: '10', frequency: 2 },
+  // { number: '11', frequency: 2 },
+  // { number: '3', frequency: 2 },
+  // { number: '2', frequency: 2 },
+  // { number: '5', frequency: 2 },
+  // { number: '8', frequency: 2 },
+  // { number: '55', frequency: 2 },
+  // { number: '9', frequency: 1 },
+  // { number: '15', frequency: 1 },
+
+  // OKAY2
   // { number: '4', frequency: 3 },
   // { number: '6', frequency: 4 },
   // { number: '7', frequency: 2 },
@@ -59,23 +73,9 @@ const arrayOfObjectsSorted =  [
   // { number: '2', frequency: 2 },
   // { number: '5', frequency: 2 },
   // { number: '8', frequency: 2 },
-  // { number: '55', frequency: 2 },
-  // { number: '9', frequency: 1 },
-  // { number: '15', frequency: 1 },
+  // { number: '55', frequency: 2 }
 
-  // OKAY
-  { number: '4', frequency: 3 },
-  { number: '6', frequency: 4 },
-  { number: '7', frequency: 2 },
-  { number: '10', frequency: 2 },
-  { number: '11', frequency: 2 },
-  { number: '3', frequency: 2 },
-  { number: '2', frequency: 2 },
-  { number: '5', frequency: 2 },
-  { number: '8', frequency: 2 },
-  { number: '55', frequency: 2 }
-
-  // OKAY
+  // OKAY2
   // { number: '7', frequency: 2 },
   // { number: '10', frequency: 2 },
   // { number: '11', frequency: 2 },
@@ -87,7 +87,7 @@ const arrayOfObjectsSorted =  [
   // { number: '9', frequency: 1 },
   // { number: '15', frequency: 1 },
 
-  // OKAY
+  // OKAY2
   // { number: '7', frequency: 8 },
   // { number: '10', frequency: 7 },
   // { number: '11', frequency: 6 },
@@ -97,33 +97,36 @@ const arrayOfObjectsSorted =  [
   // { number: '8', frequency: 2 },
   // { number: '55', frequency: 1 },
 
+  // OKAY2
   // { number: '7', frequency: 8 },
   // { number: '10', frequency: 7 },
   // { number: '11', frequency: 6 },
-  // { number: '3', frequency: 5 },
+  // { number: '3', frequency: 4 },
   // { number: '2', frequency: 4 },
   // { number: '5', frequency: 4 },
   // { number: '8', frequency: 2 },
   // { number: '55', frequency: 1 },
 
+  // OKAY2
   // { number: '7', frequency: 8 },
   // { number: '44', frequency: 8 },
   // { number: '10', frequency: 7 },
-  // { number: '11', frequency: 6 },
+  // { number: '11', frequency: 7 },
   // { number: '3', frequency: 5 },
   // { number: '2', frequency: 4 },
   // { number: '8', frequency: 2 },
   // { number: '55', frequency: 1 },
 
-  // OKAY
-  // { number: '7', frequency: 2 },
-  // { number: '10', frequency: 2 },
-  // { number: '11', frequency: 2 },
-  // { number: '3', frequency: 2 },
-  // { number: '2', frequency: 2 },
-  // { number: '5', frequency: 2 },
-  // { number: '8', frequency: 2 },
-  // { number: '55', frequency: 2 },
+  // OKAY2
+  { number: '7', frequency: 2 },
+  { number: '10', frequency: 2 },
+  { number: '11', frequency: 2 },
+  { number: '3', frequency: 2 },
+  { number: '2', frequency: 2 },
+  { number: '5', frequency: 2 },
+  { number: '8', frequency: 2 },
+  { number: '55', frequency: 2 },
+  { number: '88', frequency: 2 },
 ]
 
 const pickASetOfNumbers = (tempArray, numberOfItemsToBePicked) => {
@@ -144,61 +147,43 @@ const pickASetOfNumbers = (tempArray, numberOfItemsToBePicked) => {
 
 
 const arrangeFinalNumbers = (arr, numberOfItems) => {
-  // console.log("received:::: ", arr, numberOfItems);
 
   const formatToBeReturned = arr => arr.sort((a, b) => a - b);
   let numbersToBeReturned = [];
-  let mainCounter = 0;
 
   for (let c = 0; c < arr.length; c++) {
     
-    if (numbersToBeReturned.length === numberOfItems) {
-      console.log("flagggggg 1111");
+    if (numbersToBeReturned.length === numberOfItems)
       return formatToBeReturned(numbersToBeReturned);
-    }
 
-    let tempCounter = 0;
     let tempArray = [];
     for (let t = c + 1; t < arr.length; t++) {
-      console.log("ttt: ", t, tempArray, "tempCounter: ", tempCounter)
-
       if (arr[t].frequency !== arr[c].frequency) {
-      console.log("NOOOOOOOOW    ttt: ", t, tempArray, "tempCounter: ", tempCounter, "mainCounter::: ", mainCounter, "numberOfItems::: ", numberOfItems)
-
-        // if (tempCounter + mainCounter <= numberOfItems) {
-        if (mainCounter <= numberOfItems) {
-          console.log("flaggg22222211111XXXXXXXXXXXXXXXXXXXXX: ", numbersToBeReturned)
-          // numbersToBeReturned = [...numbersToBeReturned, (tempArray.length ? [...tempArray] : arr[c].number.toString())]; ////////
-          numbersToBeReturned = [...numbersToBeReturned, arr[c].number.toString()]; ////////
-          console.log("flaggg222222: ", numbersToBeReturned)
+        if (tempArray.length + numbersToBeReturned.length <= numberOfItems) {
+          if (tempArray.length) numbersToBeReturned = [...numbersToBeReturned, ...tempArray];
+          else numbersToBeReturned = [... numbersToBeReturned, arr[c].number.toString()];
+          c = t - 1;
           break;
         } else {
-          console.log("calling exit: ", numberOfItems)
-          let tt = pickASetOfNumbers(tempArray, numberOfItems - numbersToBeReturned.length);
-          console.log("tt= ", tt)
-          numbersToBeReturned = [...numbersToBeReturned, ...tt];
+          const temp = pickASetOfNumbers(tempArray, numberOfItems - numbersToBeReturned.length);
+          numbersToBeReturned = [...numbersToBeReturned, ...temp];
           return formatToBeReturned(numbersToBeReturned);
         }
       } else {
-        if (tempCounter === 0) tempArray = [arr[c].number, arr[t].number];
+        if (tempArray.length === 0) tempArray = [arr[c].number, arr[t].number];
         else {
           tempArray = [...tempArray, arr[t].number];
 
           if (t === arr.length - 1) {
-            // console.log("calling22: ", numberOfItems, tempArray)
-            let tt = pickASetOfNumbers(tempArray, numberOfItems - numbersToBeReturned.length);
-            // console.log("tt= ", tt)
-            numbersToBeReturned = [...numbersToBeReturned, ...tt];
+            const temp = pickASetOfNumbers(tempArray, numberOfItems - numbersToBeReturned.length);
+            numbersToBeReturned = [...numbersToBeReturned, ...temp];
             return formatToBeReturned(numbersToBeReturned);
           }
 
         }
       }
 
-      tempCounter++;
     }
-
-    mainCounter = mainCounter + tempCounter;
   }
 
   return formatToBeReturned(arr);
